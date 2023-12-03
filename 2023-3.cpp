@@ -44,8 +44,6 @@ int main() {
     };
     
     auto try_read_number = [&](int x, int y) -> std::size_t {
-        static std::unordered_set<int> met_indices;
-        
         if(!is_num(at(x,y)))
             return 0;
         
@@ -53,10 +51,13 @@ int main() {
         while(is_num(at(lx-1,y)))
             lx--;
         
-        int lx_idx = idx(lx,y);
-        if(met_indices.contains(lx_idx))
-            return 0;
-        met_indices.insert(lx_idx);
+        {
+            static std::unordered_set<int> met_indices;
+            int lx_idx = idx(lx,y);
+            if(met_indices.contains(lx_idx))
+                return 0;
+            met_indices.insert(lx_idx);
+        }
         
         int rx = x;
         while(is_num(at(rx+1,y)))
