@@ -54,12 +54,9 @@ int main() {
     
     auto src_to_desc = [](size_t v, const MapLines& lines) -> size_t {
         for(auto line : lines) {
-            auto it = line.cbegin();
-            size_t desc_start = *it;
-            std::advance(it, 1);
-            size_t src_start = *it;
-            std::advance(it, 1);
-            size_t len = *it;
+            size_t desc_start = line.at(0);
+            size_t src_start = line.at(1);
+            size_t len = line.at(2);
             if(v >= src_start && v < src_start + len)
                 return desc_start + (v - src_start);
         }
